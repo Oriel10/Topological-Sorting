@@ -40,39 +40,23 @@ std::vector<int> DAG::topologicalSort() {
       inDegreeZero.push(node_pair.second);
     }
   }
-  // std::cout << "inDegreeZero:\n";
-  // while (!inDegreeZero.empty()) {
-  //   std::cout << inDegreeZero.front()->id << " ";
-  //   inDegreeZero.pop();
-  // }
   while(!inDegreeZero.empty()) {
     DAGNode* curr = inDegreeZero.front();
-    // std::cout << "inDegreeZero.size(): " << inDegreeZero.size()<<std::endl;
-    // std::cout << "curr: " << curr->id<<std::endl;
-    
     inDegreeZero.pop();
     topologicalOrder.push_back(curr->id);
 
-    // std::cout << "outgoing: " <<std::endl;
     for(DAGNode* neighbor : curr->outgoing) {
-      // std::cout << neighbor->id <<" " << std::endl;
-
       inDegreeCopy[neighbor->id]--;
       if(inDegreeCopy[neighbor->id] == 0) {
         inDegreeZero.push(neighbor);
       }
     }
   }
-  // std::cout << "topologicalOrder:\n";
-  // for(const auto& elem : topologicalOrder) {
-    // std::cout << elem << " ";
-  // }
-  // std::cout << std::endl;
+  
   if (topologicalOrder.size() != nodes.size()) {
       std::cerr << "The graph contains a cycle! Topological sort not possible.\n";
       return {};
   }
 
-  
   return topologicalOrder;
 };

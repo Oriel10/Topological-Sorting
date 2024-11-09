@@ -22,7 +22,7 @@ int main() {
     graph.addEdge(7, 6);
 
     // Display the graph
-    vector<int> topoSort = graph.topologicalSort();
+    std::vector<int> topoSort = graph.topologicalSort();
     for(const auto& elem : topoSort) {
       std::cout << elem << " ";
     }
